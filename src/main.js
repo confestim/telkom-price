@@ -7,12 +7,7 @@ const bg_alphabet = ["а","б","в", "г", "д", "е" ,"ж","з","и","й","к",
 
 // cleaning the query
 function clean_query(unclean){
-    if (unclean.search(" ")){
-        clean = unclean.replaceAll(" ", "+");
-    }
-    clean = clean.replace(/[\u0400-\u04FF]/gi, "").replace("/\s/g", "");
-    clean = clean.replace(":", ""); 
-
+    clean = clean.replace(/[\u0400-\u04FF]/gi, "").replace("/\s/g", "+").replace(":", ""); 
     return clean
 }
 
@@ -23,15 +18,13 @@ for (let i = 0; i < items.length; i++) {
     let xhr = new XMLHttpRequest();
     xhr.onload = function () {
         // item attributes
-      let item_desc = this.responseXML.getElementsByClassName("s-item__link")[1].getAttribute("href");
-      let item_price = this.responseXML.getElementsByClassName("s-item__price")[1].textContent;
-      items[i].innerHTML += "<a href=" + item_desc + ">" + "<h5>~" + item_price + "</h5>" + "</a>";
-    //   items[i].innerHTML += "<h5>~" + item_price + "</h5>" + "<h5 class="telcom_addon">" + item_desc + "</h5>";
-    //   
+        let item_url = this.responseXML.getElementsByClassName("s-item__link")[1].getAttribute("href");
+        let item_price = this.responseXML.getElementsByClassName("s-item__price")[1].textContent;
+        items[i].innerHTML += "<a href=" + item_url + ">" + "<h5>~" + item_price + "</h5>" + "</a>";
       
     };
     xhr.onerror = function () {
-      console.log("An error occurred");
+        console.log("An error occurred");
     }
     // querying ebay
     xhr.open("GET", "https://www.ebay.com/sch/i.html?_nkw=ham`+radio" + clean_query(item_name), true);
