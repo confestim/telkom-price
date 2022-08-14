@@ -1,0 +1,19 @@
+
+{
+  "manifest_version": 2,
+  "name": "Telcom Price Estimator",
+  "version": "1.0",
+ 
+  "description": "Estimates a price on telcom",
+ 
+  "content_scripts": [
+    {
+      "matches": ["*://*.telcom-eng.com/*"],
+      "js": ["telcom.js"]
+    }
+  ],
+ 
+  "permissions": [
+    "*://*.ebay.com/sch/i.html?_nkw=*"
+  ]
+}
